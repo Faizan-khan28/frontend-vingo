@@ -2,25 +2,31 @@ import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { serverUrl } from "../App";
 
 const roles = ["user", "owner", "deliveryBoy"];
 
 const SignUp = () => {
   const navigate = useNavigate();
-
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    mobile: "",
-    password: "",
-    role: "user",
-  });
-
+  const [fullName,setFullname] = useState("");
+  const [email,setEmail] = useState("");
+  const [mobile,setMobile] = useState("");
+  const [password,setPassword] = useState("");
+  const [role,setRole] = useState("user");
   const [showPassword, setShowPassword] = useState(false);
+ 
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  const handleSignup = async () => {
+    try {
+      const result = await axios.post(`${serverUrl}/api/auth/signup`,{
+        fullName,email,mobile,password,role
+      },{withCredentials:true})
+      console.log(result)
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#fff6f1] px-3 sm:px-4">
@@ -40,30 +46,30 @@ const SignUp = () => {
         <label className="text-xs text-gray-700 sm:text-sm font-medium">Full Name</label>
         <input
           type="text"
-          name="name"
+          value={fullName}
           placeholder="Enter your Full Name"
           className="w-full border border-gray-500 rounded-md px-3 py-2 mb-3 text-sm focus:outline-none  focus:border-orange-500"
-          onChange={handleChange}
+          onChange={(e)=> setFullname(e.target.value)}
         />
 
         {/* Email */}
         <label className="text-xs text-gray-700 sm:text-sm font-medium">Email</label>
         <input
           type="email"
-          name="email"
+          value={email}
           placeholder="Enter your Email"
           className="w-full border border-gray-500  rounded-md px-3 py-2 mb-3 text-sm focus:outline-none  focus:border-orange-500"
-          onChange={handleChange}
+          onChange={(e)=> setEmail(e.target.value)}
         />
 
         {/* Mobile */}
         <label className="text-xs text-gray-700 sm:text-sm font-medium">Mobile</label>
         <input
           type="text"
-          name="mobile"
+          value={mobile}
           placeholder="Enter your Mobile Number"
           className="w-full border border-gray-500 rounded-md px-3 py-2 mb-3 text-sm  focus:outline-none  focus:border-orange-500"
-          onChange={handleChange}
+          onChange={(e)=> setMobile(e.target.value)}
         />
 
         {/* Password */}
@@ -71,10 +77,10 @@ const SignUp = () => {
         <div className="relative mb-4">
           <input
             type={showPassword ? "text" : "password"}
-            name="password"
+            value={password}
             placeholder="Enter your password"
             className="w-full border border-gray-500 rounded-md px-3 py-2 text-sm focus:outline-none  focus:border-orange-500"
-            onChange={handleChange}
+            onChange={(e)=> setPassword(e.target.value)}
           />
           <span
             onClick={() => setShowPassword(!showPassword)}
@@ -87,25 +93,25 @@ const SignUp = () => {
         {/* Role Buttons */}
         <label className="text-xs text-gray-700 sm:text-sm font-medium">Role</label>
         <div className="flex gap-2 mb-4 mt-1">
-          {roles.map((role) => (
+          {roles.map((r) => (
             <button
-              key={role}
+              key={r}
               type="button"
-              onClick={() => setFormData({ ...formData, role })}
+              onClick={() => setRole(r)}
               className={`flex-1 border cursor-pointer rounded-md py-2 text-xs sm:text-sm font-medium capitalize transition
                 ${
-                  formData.role === role
+                  role === r
                     ? "bg-orange-500 text-white border-orange-500"
                     : "text-orange-500 border-orange-500"
                 }`}
             >
-              {role}
+              {r}
             </button>
           ))}
         </div>
 
         {/* Sign Up */} 
-        <button className="w-full bg-orange-500 hover:bg-orange-600 cursor-pointer text-white py-2 rounded-md font-semibold text-sm sm:text-base mb-3">
+        <button onClick={handleSignup} className="w-full bg-orange-500 hover:bg-orange-600 cursor-pointer text-white py-2 rounded-md font-semibold text-sm sm:text-base mb-3">
           Sign Up
         </button>
 
