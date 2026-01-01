@@ -37,43 +37,43 @@ const SignUp = () => {
         </p>
 
         {/* Full Name */}
-        <label className="text-xs sm:text-sm font-medium">Full Name</label>
+        <label className="text-xs text-gray-700 sm:text-sm font-medium">Full Name</label>
         <input
           type="text"
           name="name"
           placeholder="Enter your Full Name"
-          className="w-full border rounded-md px-3 py-2 mb-3 text-sm focus:outline-none  focus:border-orange-500"
+          className="w-full border border-gray-500 rounded-md px-3 py-2 mb-3 text-sm focus:outline-none  focus:border-orange-500"
           onChange={handleChange}
         />
 
         {/* Email */}
-        <label className="text-xs sm:text-sm font-medium">Email</label>
+        <label className="text-xs text-gray-700 sm:text-sm font-medium">Email</label>
         <input
           type="email"
           name="email"
           placeholder="Enter your Email"
-          className="w-full border rounded-md px-3 py-2 mb-3 text-sm focus:outline-none  focus:border-orange-500"
+          className="w-full border border-gray-500  rounded-md px-3 py-2 mb-3 text-sm focus:outline-none  focus:border-orange-500"
           onChange={handleChange}
         />
 
         {/* Mobile */}
-        <label className="text-xs sm:text-sm font-medium">Mobile</label>
+        <label className="text-xs text-gray-700 sm:text-sm font-medium">Mobile</label>
         <input
           type="text"
           name="mobile"
           placeholder="Enter your Mobile Number"
-          className="w-full border rounded-md px-3 py-2 mb-3 text-sm  focus:outline-none  focus:border-orange-500"
+          className="w-full border border-gray-500 rounded-md px-3 py-2 mb-3 text-sm  focus:outline-none  focus:border-orange-500"
           onChange={handleChange}
         />
 
         {/* Password */}
-        <label className="text-xs sm:text-sm font-medium">Password</label>
+        <label className="text-xs text-gray-700 sm:text-sm font-medium">Password</label>
         <div className="relative mb-4">
           <input
             type={showPassword ? "text" : "password"}
             name="password"
             placeholder="Enter your password"
-            className="w-full border rounded-md px-3 py-2 text-sm focus:outline-none  focus:border-orange-500"
+            className="w-full border border-gray-500 rounded-md px-3 py-2 text-sm focus:outline-none  focus:border-orange-500"
             onChange={handleChange}
           />
           <span
@@ -85,7 +85,7 @@ const SignUp = () => {
         </div>
 
         {/* Role Buttons */}
-        <label className="text-xs sm:text-sm font-medium">Role</label>
+        <label className="text-xs text-gray-700 sm:text-sm font-medium">Role</label>
         <div className="flex gap-2 mb-4 mt-1">
           {roles.map((role) => (
             <button
@@ -104,13 +104,13 @@ const SignUp = () => {
           ))}
         </div>
 
-        {/* Sign Up */}
+        {/* Sign Up */} 
         <button className="w-full bg-orange-500 hover:bg-orange-600 cursor-pointer text-white py-2 rounded-md font-semibold text-sm sm:text-base mb-3">
           Sign Up
         </button>
 
         {/* Google */}
-        <button className="w-full hover:bg-gray-100 cursor-pointer border py-2 rounded-md flex items-center justify-center gap-2 text-xs sm:text-sm">
+        <button className="w-full transition duration-200 border-gray-400 hover:bg-gray-100 cursor-pointer border py-2 rounded-md flex items-center justify-center gap-2 text-xs sm:text-sm">
           <FcGoogle />
           Sign up with Google
         </button>
@@ -119,7 +119,7 @@ const SignUp = () => {
         <p className="text-center text-xs sm:text-sm mt-4">
           Already have an account ?
           <span
-            onClick={() => navigate("/signin")}
+            onClick={() => navigate("/login")}
             className="text-orange-500 cursor-pointer ml-1 font-medium"
           >
             Sign In
