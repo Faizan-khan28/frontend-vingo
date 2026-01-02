@@ -47,6 +47,7 @@ const LogIn = () => {
           placeholder="Enter your Email"
           className="w-full border border-gray-500  rounded-md px-3 py-2 mb-3 text-sm focus:outline-none  focus:border-orange-500"
           onChange={(e)=> setEmail(e.target.value)}
+          required
         />
 
 
@@ -59,6 +60,7 @@ const LogIn = () => {
             placeholder="Enter your password"
             className="w-full border border-gray-500 rounded-md px-3 py-2 text-sm focus:outline-none  focus:border-orange-500"
             onChange={(e)=> setPassword(e.target.value)}
+            required
           />
           <span
             onClick={() => setShowPassword(!showPassword)}
