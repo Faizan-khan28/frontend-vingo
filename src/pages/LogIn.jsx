@@ -68,7 +68,7 @@ const LogIn = () => {
           </span>
         </div>
 
-        <div onClick={()=> navigate("forgot-password")} className="text-right mb-4 text-[#ff4d2d] font-medium cursor-pointer">
+        <div onClick={()=> navigate("/forgot-password")} className="text-right mb-4 text-[#ff4d2d] font-medium cursor-pointer">
           Forgot Password
         </div>
 
