@@ -2,6 +2,7 @@ import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { FcGoogle } from "react-icons/fc";
 import { useNavigate } from "react-router-dom";
+import { toast ,Toaster} from "react-hot-toast";
 import axios from "axios";
 import { serverUrl } from "../App";
 
@@ -11,9 +12,18 @@ const LogIn = () => {
   const [email,setEmail] = useState("");
   const [password,setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
- 
 
+ 
   const handleLogin = async () => {
+    if(!password) {
+    toast.error("Please Enter Password")
+    }
+    if(!email) {
+    toast.error("Please Enter Email")
+    }
+    if(email && password) {
+      toast.success("Login Succussfull")
+    }
     try {
       const result = await axios.post(`${serverUrl}/api/auth/login`,{
         email,password,
@@ -26,6 +36,7 @@ const LogIn = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#fff6f1] px-3 sm:px-4">
+    <Toaster position="top-center" reverseOrder={false} />
       
       {/* CARD */}
       <div className="w-full max-w-md sm:max-w-lg bg-white p-4 sm:p-6 rounded-xl shadow-md">
@@ -47,7 +58,6 @@ const LogIn = () => {
           placeholder="Enter your Email"
           className="w-full border border-gray-500  rounded-md px-3 py-2 mb-3 text-sm focus:outline-none  focus:border-orange-500"
           onChange={(e)=> setEmail(e.target.value)}
-          required
         />
 
 
@@ -60,7 +70,6 @@ const LogIn = () => {
             placeholder="Enter your password"
             className="w-full border border-gray-500 rounded-md px-3 py-2 text-sm focus:outline-none  focus:border-orange-500"
             onChange={(e)=> setPassword(e.target.value)}
-            required
           />
           <span
             onClick={() => setShowPassword(!showPassword)}

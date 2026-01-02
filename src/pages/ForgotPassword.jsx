@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { FaArrowLeft, FaEye, FaEyeSlash } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { toast ,Toaster} from "react-hot-toast";
 
 const ForgotPassword = () => {
   // STEP CONTROL (1, 2, 3)
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(2);
 
   // FORM DATA
   const [email, setEmail] = useState("");
@@ -19,7 +20,7 @@ const ForgotPassword = () => {
   // STEP 1 → SEND OTP
   const handleSendOtp = () => {
     if (!email) {
-      alert("Please enter email");
+      toast.error("Please enter email");
       return;
     }
     // yaha backend me OTP bhejne ka logic hota hai
@@ -29,7 +30,7 @@ const ForgotPassword = () => {
   // STEP 2 → VERIFY OTP
   const handleVerifyOtp = () => {
     if (!otp) {
-      alert("Please enter OTP");
+      toast.error("Please enter OTP");
       return;
     }
     // yaha backend me OTP verify hota hai
@@ -39,21 +40,22 @@ const ForgotPassword = () => {
   // STEP 3 → RESET PASSWORD
   const handleResetPassword = () => {
     if (!newPassword || !confirmPassword) {
-      alert("Please fill all fields");
+      toast.error("Please fill all fields");
       return;
     }
 
     if (newPassword !== confirmPassword) {
-      alert("Passwords do not match");
+      toast.error("Passwords do not match");
       return;
     }
 
     // yaha backend me password reset hota hai
-    alert("Password reset successful");
+    toast.success("Password reset successful");
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#fff6f1] px-3">
+      <Toaster position="top-center" reverseOrder={false} />
       <div className="w-full max-w-md bg-white p-4 sm:p-6 rounded-xl shadow-md">
 
         {/* HEADER */}
