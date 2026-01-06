@@ -84,7 +84,7 @@ const LogIn = () => {
         </div>
 
         {/* Sign Up */} 
-        <button onClick={handleLogin} className="w-full bg-orange-500 hover:bg-orange-600 cursor-pointer text-white py-2 rounded-md font-semibold text-sm sm:text-base mb-3">
+        <button onClick={handleLogin} className="w-full bg-orange-400 hover:bg-orange-500 cursor-pointer text-white py-2 rounded-md font-semibold text-sm sm:text-base mb-3">
           Login
         </button>
 

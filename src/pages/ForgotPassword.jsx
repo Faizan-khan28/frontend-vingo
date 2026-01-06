@@ -2,10 +2,11 @@ import { useState } from "react";
 import { FaArrowLeft, FaEye, FaEyeSlash } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { toast ,Toaster} from "react-hot-toast";
-
+import {serverUrl} from "../App"
+import axios from "axios";
 const ForgotPassword = () => {
   // STEP CONTROL (1, 2, 3)
-  const [step, setStep] = useState(2);
+  const [step, setStep] = useState(1);
 
   // FORM DATA
   const [email, setEmail] = useState("");
@@ -17,29 +18,47 @@ const ForgotPassword = () => {
 
   const navigate = useNavigate()
 
+
   // STEP 1 → SEND OTP
-  const handleSendOtp = () => {
-    if (!email) {
+  const handleSendOtp = async () => {
+    try {
+      if (!email) {
       toast.error("Please enter email");
       return;
     }
+    const result = await axios.post(`${serverUrl}/api/auth/send-otp`,
+      {email},{withCredentials:true}
+    )
+    console.log(result);
     // yaha backend me OTP bhejne ka logic hota hai
     setStep(2);
+    } catch (error) {
+      console.log(error)
+    }
   };
 
   // STEP 2 → VERIFY OTP
-  const handleVerifyOtp = () => {
-    if (!otp) {
+  const handleVerifyOtp = async () => {
+    try {
+      if (!otp) {
       toast.error("Please enter OTP");
       return;
     }
+    const result = await axios.post(`${serverUrl}/api/auth/otp-verify`,
+      {email,otp},{withCredentials: true}
+    )
+    console.log(result)
     // yaha backend me OTP verify hota hai
     setStep(3);
+    } catch (error) {
+      console.log(error)
+    }
   };
 
   // STEP 3 → RESET PASSWORD
-  const handleResetPassword = () => {
-    if (!newPassword || !confirmPassword) {
+  const handleResetPassword = async () => {
+    try {
+      if (!newPassword || !confirmPassword) {
       toast.error("Please fill all fields");
       return;
     }
@@ -49,9 +68,20 @@ const ForgotPassword = () => {
       return;
     }
 
+    const result = await axios.post(`${serverUrl}/api/auth/reset-password`,{email,newPassword},
+      {withCredentials: true}
+    )
+    console.log(result)
+
     // yaha backend me password reset hota hai
     toast.success("Password reset successful");
+    navigate("/login")
+    } catch (error) {
+      console.log(error)
+    }
   };
+
+  
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#fff6f1] px-3">
@@ -81,7 +111,7 @@ const ForgotPassword = () => {
 
             <button
               onClick={handleSendOtp}
-              className="w-full cursor-pointer hover:bg-amber-500 bg-orange-400 text-white py-2 rounded-md font-medium"
+              className="w-full cursor-pointer hover:bg-orange-500 bg-orange-400 text-white py-2 rounded-md font-medium"
             >
               Send OTP
             </button>
@@ -103,7 +133,7 @@ const ForgotPassword = () => {
 
             <button
               onClick={handleVerifyOtp}
-              className="w-full cursor-pointer hover:bg-amber-500 bg-orange-400 text-white py-2 rounded-md font-medium"
+              className="w-full cursor-pointer hover:bg-orange-500 bg-orange-400 text-white py-2 rounded-md font-medium"
             >
               Verify
             </button>
@@ -143,7 +173,7 @@ const ForgotPassword = () => {
 
             <button
               onClick={handleResetPassword}
-              className="w-full cursor-pointer hover:bg-amber-500 bg-orange-400 text-white py-2 rounded-md font-medium"
+              className="w-full cursor-pointer hover:bg-orange-500 bg-orange-400 text-white py-2 rounded-md font-medium"
             >
               Reset Password
             </button>
