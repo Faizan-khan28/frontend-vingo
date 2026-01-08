@@ -6,6 +6,7 @@ import axios from "axios";
 import { serverUrl } from "../App";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "../../firebase/firebase";
+import  { Toaster,toast } from "react-hot-toast";
 
 const roles = ["user", "owner", "deliveryBoy"];
 
@@ -31,13 +32,28 @@ const SignUp = () => {
   }
 
   const handlegogleAuth = async() => {
+    if(!mobile) {
+     return toast.error("Mobile no. Required")
+    }
     const provider = new GoogleAuthProvider()
     const result = await signInWithPopup(auth,provider)
     console.log(result)
+    try {
+      const {data} = await axios.post(`${serverUrl}/api/auth/google-auth`,{
+        fullName: result.user.displayName,
+        email: result.user.email,
+        mobile,
+        role,
+      },{withCredentials:true})
+      console.log(data)
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#fff6f1] px-3 sm:px-4">
+      <Toaster position="top-center" reverseOrder={false} />
       
       {/* CARD */}
       <div className="w-full max-w-md sm:max-w-lg bg-white p-4 sm:p-6 rounded-xl shadow-md">
