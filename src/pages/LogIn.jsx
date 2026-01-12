@@ -5,6 +5,9 @@ import { useNavigate } from "react-router-dom";
 import { toast ,Toaster} from "react-hot-toast";
 import axios from "axios";
 import { serverUrl } from "../App";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { auth } from "../../firebase/firebase";
+
 
 
 const LogIn = () => {
@@ -29,6 +32,20 @@ const LogIn = () => {
         email,password,
       },{withCredentials:true})
       console.log(result)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const handlegogleAuth = async() => {
+    const provider = new GoogleAuthProvider()
+    const result = await signInWithPopup(auth,provider)
+    console.log(result)
+    try {
+      const {data} = await axios.post(`${serverUrl}/api/auth/google-auth`,{
+        email: result.user.email,
+      },{withCredentials:true})
+      console.log(data)
     } catch (error) {
       console.log(error)
     }
@@ -89,7 +106,7 @@ const LogIn = () => {
         </button>
 
         {/* Google */}
-        <button className="w-full transition duration-200 border-gray-400 hover:bg-gray-100 cursor-pointer border py-2 rounded-md flex items-center justify-center gap-2 text-xs sm:text-sm">
+        <button onClick={handlegogleAuth} className="w-full transition duration-200 border-gray-400 hover:bg-gray-100 cursor-pointer border py-2 rounded-md flex items-center justify-center gap-2 text-xs sm:text-sm">
           <FcGoogle />
           Sign up with Google
         </button>
