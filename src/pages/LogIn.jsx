@@ -7,6 +7,7 @@ import axios from "axios";
 import { serverUrl } from "../App";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "../../firebase/firebase";
+import { ClipLoader } from "react-spinners";
 
 
 
@@ -15,9 +16,11 @@ const LogIn = () => {
   const [email,setEmail] = useState("");
   const [password,setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [loding, setLoding] = useState(false);
 
  
   const handleLogin = async () => {
+    setLoding(true)
     if(!password) {
     toast.error("Please Enter Password")
     }
@@ -32,8 +35,10 @@ const LogIn = () => {
         email,password,
       },{withCredentials:true})
       console.log(result)
+      setLoding(false)
     } catch (error) {
       console.log(error)
+      setLoding(false)
     }
   }
 
@@ -75,6 +80,7 @@ const LogIn = () => {
           placeholder="Enter your Email"
           className="w-full border border-gray-500  rounded-md px-3 py-2 mb-3 text-sm focus:outline-none  focus:border-orange-500"
           onChange={(e)=> setEmail(e.target.value)}
+          required
         />
 
 
@@ -87,6 +93,7 @@ const LogIn = () => {
             placeholder="Enter your password"
             className="w-full border border-gray-500 rounded-md px-3 py-2 text-sm focus:outline-none  focus:border-orange-500"
             onChange={(e)=> setPassword(e.target.value)}
+            required
           />
           <span
             onClick={() => setShowPassword(!showPassword)}
@@ -101,8 +108,8 @@ const LogIn = () => {
         </div>
 
         {/* Sign Up */} 
-        <button onClick={handleLogin} className="w-full bg-orange-400 hover:bg-orange-500 cursor-pointer text-white py-2 rounded-md font-semibold text-sm sm:text-base mb-3">
-          Login
+        <button onClick={handleLogin} disabled={loding} className="w-full bg-orange-400 hover:bg-orange-500 cursor-pointer text-white py-2 rounded-md font-semibold text-sm sm:text-base mb-3">
+          {loding ? <ClipLoader size={20} color="white"/> : "Login"}
         </button>
 
         {/* Google */}

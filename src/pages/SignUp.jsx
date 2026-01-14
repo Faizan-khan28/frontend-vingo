@@ -7,6 +7,7 @@ import { serverUrl } from "../App";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "../../firebase/firebase";
 import  { Toaster,toast } from "react-hot-toast";
+import { ClipLoader } from "react-spinners"
 
 const roles = ["user", "owner", "deliveryBoy"];
 
@@ -18,16 +19,24 @@ const SignUp = () => {
   const [password,setPassword] = useState("");
   const [role,setRole] = useState("user");
   const [showPassword, setShowPassword] = useState(false);
+  const [loding, setLoding] = useState(false)
  
 
   const handleSignup = async () => {
+    setLoding(true)
     try {
       const result = await axios.post(`${serverUrl}/api/auth/signup`,{
         fullName,email,mobile,password,role
       },{withCredentials:true})
+      toast.success(result.data.message)
       console.log(result)
+      setLoding(false)
     } catch (error) {
+      if(error.response) {
+        toast.error(error.response.data.message)
+      }
       console.log(error)
+      setLoding(false)
     }
   }
 
@@ -74,6 +83,7 @@ const SignUp = () => {
           placeholder="Enter your Full Name"
           className="w-full border border-gray-500 rounded-md px-3 py-2 mb-3 text-sm focus:outline-none  focus:border-orange-500"
           onChange={(e)=> setFullname(e.target.value)}
+          required
         />
 
         {/* Email */}
@@ -84,6 +94,7 @@ const SignUp = () => {
           placeholder="Enter your Email"
           className="w-full border border-gray-500  rounded-md px-3 py-2 mb-3 text-sm focus:outline-none  focus:border-orange-500"
           onChange={(e)=> setEmail(e.target.value)}
+          required
         />
 
         {/* Mobile */}
@@ -94,6 +105,7 @@ const SignUp = () => {
           placeholder="Enter your Mobile Number"
           className="w-full border border-gray-500 rounded-md px-3 py-2 mb-3 text-sm  focus:outline-none  focus:border-orange-500"
           onChange={(e)=> setMobile(e.target.value)}
+          required
         />
 
         {/* Password */}
@@ -105,6 +117,7 @@ const SignUp = () => {
             placeholder="Enter your password"
             className="w-full border border-gray-500 rounded-md px-3 py-2 text-sm focus:outline-none  focus:border-orange-500"
             onChange={(e)=> setPassword(e.target.value)}
+            required
           />
           <span
             onClick={() => setShowPassword(!showPassword)}
@@ -135,8 +148,8 @@ const SignUp = () => {
         </div>
 
         {/* Sign Up */} 
-        <button onClick={handleSignup} className="w-full bg-orange-400 hover:bg-orange-500 cursor-pointer text-white py-2 rounded-md font-semibold text-sm sm:text-base mb-3">
-          Sign Up
+        <button onClick={handleSignup} disabled={loding} className="w-full bg-orange-400 hover:bg-orange-500 cursor-pointer text-white py-2 rounded-md font-semibold text-sm sm:text-base mb-3">
+          {loding ? <ClipLoader size={20} color="white"/>  : "Sign Up"}
         </button>
 
         {/* Google */}

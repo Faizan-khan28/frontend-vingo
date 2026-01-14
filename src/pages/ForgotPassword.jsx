@@ -13,14 +13,15 @@ const ForgotPassword = () => {
   const [otp, setOtp] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-
   const [showPassword, setShowPassword] = useState(false);
+  const [loding, setLoding] = useState(false)
 
   const navigate = useNavigate()
 
 
   // STEP 1 → SEND OTP
   const handleSendOtp = async () => {
+    setLoding(true)
     try {
       if (!email) {
       toast.error("Please enter email");
@@ -30,15 +31,18 @@ const ForgotPassword = () => {
       {email},{withCredentials:true}
     )
     console.log(result);
+    setLoding(false)
     // yaha backend me OTP bhejne ka logic hota hai
     setStep(2);
     } catch (error) {
       console.log(error)
+       setLoding(false)
     }
   };
 
   // STEP 2 → VERIFY OTP
   const handleVerifyOtp = async () => {
+     setLoding(true)
     try {
       if (!otp) {
       toast.error("Please enter OTP");
@@ -48,15 +52,18 @@ const ForgotPassword = () => {
       {email,otp},{withCredentials: true}
     )
     console.log(result)
+     setLoding(false)
     // yaha backend me OTP verify hota hai
     setStep(3);
     } catch (error) {
       console.log(error)
+       setLoding(false)
     }
   };
 
   // STEP 3 → RESET PASSWORD
   const handleResetPassword = async () => {
+    setLoding(true)
     try {
       if (!newPassword || !confirmPassword) {
       toast.error("Please fill all fields");
@@ -72,12 +79,14 @@ const ForgotPassword = () => {
       {withCredentials: true}
     )
     console.log(result)
+    setLoding(false)
 
     // yaha backend me password reset hota hai
     toast.success("Password reset successful");
     navigate("/login")
     } catch (error) {
       console.log(error)
+       setLoding(false)
     }
   };
 
@@ -107,13 +116,15 @@ const ForgotPassword = () => {
               outline-none focus:border-orange-500 focus:ring-1 focus:ring-orange-400 mb-4"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+
             />
 
             <button
               onClick={handleSendOtp}
+              disabled={loding}
               className="w-full cursor-pointer hover:bg-orange-500 bg-orange-400 text-white py-2 rounded-md font-medium"
             >
-              Send OTP
+              {loding ? <ClipLoader size={20} color="white"/>  : "Send OTP"}
             </button>
           </>
         )}
@@ -133,9 +144,10 @@ const ForgotPassword = () => {
 
             <button
               onClick={handleVerifyOtp}
+              disabled={loding}
               className="w-full cursor-pointer hover:bg-orange-500 bg-orange-400 text-white py-2 rounded-md font-medium"
             >
-              Verify
+              {loding ? <ClipLoader size={20} color="white"/>  : "Verify"}
             </button>
           </>
         )}
@@ -173,9 +185,10 @@ const ForgotPassword = () => {
 
             <button
               onClick={handleResetPassword}
+              disabled={loding}
               className="w-full cursor-pointer hover:bg-orange-500 bg-orange-400 text-white py-2 rounded-md font-medium"
             >
-              Reset Password
+              {loding ? <ClipLoader size={20} color="white"/>  : "Reset Password"}
             </button>
           </>
         )}
