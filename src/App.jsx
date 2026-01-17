@@ -3,10 +3,11 @@ import LogIn from "./pages/LogIn"
 import SignUp from "./pages/SignUp"
 import { Home } from "./pages/Home"
 import ForgotPassword from "./pages/ForgotPassword"
+import useGetCurrentUser from "./hooks/useGetCurrentUser"
 export const serverUrl = "http://localhost:8000"
 
 function App() {
-  
+  useGetCurrentUser()
   return (
     <>
      <Routes>
