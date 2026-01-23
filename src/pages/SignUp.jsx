@@ -8,6 +8,8 @@ import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth } from "../../firebase/firebase";
 import  { Toaster,toast } from "react-hot-toast";
 import { ClipLoader } from "react-spinners"
+import { useDispatch } from "react-redux"
+import { setuserData } from "../store/userSlice";
 
 const roles = ["user", "owner", "deliveryBoy"];
 
@@ -20,6 +22,7 @@ const SignUp = () => {
   const [role,setRole] = useState("user");
   const [showPassword, setShowPassword] = useState(false);
   const [loding, setLoding] = useState(false)
+  const dispatch = useDispatch()
  
 
   const handleSignup = async () => {
@@ -29,6 +32,7 @@ const SignUp = () => {
         fullName,email,mobile,password,role
       },{withCredentials:true})
       toast.success(result.data.message)
+      dispatch(setuserData(result.data))
       console.log(result)
       setLoding(false)
     } catch (error) {
@@ -54,6 +58,7 @@ const SignUp = () => {
         mobile,
         role,
       },{withCredentials:true})
+      dispatch(setuserData(data))
       console.log(data)
     } catch (error) {
       console.log(error)
