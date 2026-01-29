@@ -1,57 +1,60 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { FaSearch, FaShoppingCart } from "react-icons/fa";
+import { FaSearch, FaShoppingCart, FaMapMarkerAlt } from "react-icons/fa";
 
 const Navbar = () => {
   const user = useSelector((state) => state.user);
 
-  const [showSearch, setShowSearch] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
+  const [showMobileSearch, setShowMobileSearch] = useState(false);
 
-  const firstLetter = user?.userData.fullName?.charAt(0).toUpperCase();
+  const firstLetter = user?.userData?.fullName?.charAt(0).toUpperCase();
 
   return (
     <nav className="w-full bg-[#fff7f2] shadow-sm px-4 py-3">
       <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
 
-        {/* Left */}
-        <div className="flex items-center gap-4">
-          <h1 className="text-xl font-bold text-orange-500">Vingo</h1>
+        {/* LEFT : LOGO */}
+        <h1 className="text-xl font-bold text-orange-500">Vingo</h1>
 
-          {/* Location - Desktop only */}
-          <div className="hidden md:flex items-center gap-1 text-gray-700">
-            <span>📍</span>
-            <span className="text-sm">Bareilly</span>
-          </div>
-        </div>
+        {/* CENTER : LOCATION + SEARCH (DESKTOP) */}
+        <div className="hidden md:flex flex-1 items-center bg-white shadow-sm rounded-full px-4 py-2 gap-3">
+          <FaMapMarkerAlt className="text-orange-500" />
+          <span className="text-sm text-gray-600">Bareilly</span>
 
-        {/* Search - Desktop */}
-        <div className="hidden md:flex flex-1">
+          <span className="h-5 w-px bg-gray-300"></span>
+
+          <FaSearch className="text-gray-400" />
           <input
             type="text"
             placeholder="search delicious food..."
-            className="w-full px-4 py-2 rounded-full border focus:outline-none"
+            className="flex-1 outline-none text-sm"
           />
         </div>
 
-        {/* Right */}
+        {/* RIGHT : CART + ORDERS + USER */}
         <div className="flex items-center gap-4 relative">
 
           {/* Mobile search icon */}
           <button
             className="md:hidden"
-            onClick={() => setShowSearch(!showSearch)}
+            onClick={() => setShowMobileSearch(!showMobileSearch)}
           >
-            <FaSearch/>
+            <FaSearch />
           </button>
 
           {/* Cart */}
           <div className="relative cursor-pointer">
-            <FaShoppingCart/>
+            <FaShoppingCart />
             <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
               0
             </span>
           </div>
+
+          {/* My Orders (Desktop only) */}
+          <button className="hidden md:block cursor-pointer text-sm text-orange-500 font-medium">
+            My Orders
+          </button>
 
           {/* User Avatar */}
           <div className="relative cursor-pointer">
@@ -62,14 +65,14 @@ const Navbar = () => {
               {firstLetter}
             </button>
 
-            {/* User Dropdown */}
+            {/* USER POPUP */}
             {showUserMenu && (
               <div className="absolute right-0 top-12 bg-white shadow-lg rounded-md w-40 p-2">
-                <p className="text-sm cursor-pointer font-semibold px-2 py-1">
+                <p className="text-sm font-semibold px-2 py-1">
                   {user?.userData?.fullName}
                 </p>
                 <hr />
-                <button className="md:hidden cursor-pointer w-full text-left px-2 py-1 text-sm hover:bg-gray-100">
+                <button className="w-full md:hidden cursor-pointer text-left px-2 py-1 text-sm hover:bg-gray-100">
                   My Orders
                 </button>
                 <button className="w-full cursor-pointer text-left px-2 py-1 text-sm text-red-500 hover:bg-gray-100">
@@ -81,13 +84,14 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Search Bar */}
-      {showSearch && (
-        <div className="md:hidden mt-3">
+      {/* MOBILE SEARCH BAR */}
+      {showMobileSearch && (
+        <div className="md:hidden mt-3 bg-white shadow-sm rounded-full px-4 py-2 flex items-center gap-2">
+          <FaSearch className="text-gray-400" />
           <input
             type="text"
             placeholder="search delicious food..."
-            className="w-full px-4 py-2 rounded-full border focus:outline-none"
+            className="flex-1 outline-none text-sm"
           />
         </div>
       )}
