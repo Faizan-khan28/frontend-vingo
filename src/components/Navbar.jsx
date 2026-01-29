@@ -11,11 +11,11 @@ const Navbar = () => {
   const firstLetter = user?.userData?.fullName?.charAt(0).toUpperCase();
 
   return (
-    <nav className="w-full bg-[#fff7f2] shadow-sm px-4 py-3">
-      <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
+    <nav className="w-full bg-[#fff7f2] shadow-sm rounded-md px-4 md:px-15 py-3">
+      <div className="max-w-7xl mx-auto flex items-center justify-between gap-5">
 
         {/* LEFT : LOGO */}
-        <h1 className="text-xl font-bold text-orange-500">Vingo</h1>
+        <h1 className="text-2xl font-bold text-orange-500">Vingo</h1>
 
         {/* CENTER : LOCATION + SEARCH (DESKTOP) */}
         <div className="hidden md:flex flex-1 items-center bg-white shadow-sm rounded-full px-4 py-2 gap-3">
