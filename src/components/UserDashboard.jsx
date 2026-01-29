@@ -1,6 +1,9 @@
+import Navbar from "../components/Navbar"
 
 export const UserDashboard = () => {
   return (
-    <div>UserDashboard</div>
+   <div>
+    <Navbar/>
+   </div>
   )
 }
