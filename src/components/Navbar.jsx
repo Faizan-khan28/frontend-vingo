@@ -11,7 +11,7 @@ const Navbar = () => {
   const firstLetter = user?.userData?.fullName?.charAt(0).toUpperCase();
 
   return (
-    <nav className="w-full bg-[#fff7f2] shadow-sm rounded-md px-4 md:px-15 py-3">
+    <nav className="w-full bg-[#fff9f6] shadow-sm rounded-md px-4 md:px-15 py-3">
       <div className="max-w-7xl mx-auto flex items-center justify-between gap-5">
 
         {/* LEFT : LOGO */}
