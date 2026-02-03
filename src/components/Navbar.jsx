@@ -3,12 +3,12 @@ import { useSelector } from "react-redux";
 import { FaSearch, FaShoppingCart, FaMapMarkerAlt } from "react-icons/fa";
 
 const Navbar = () => {
-  const user = useSelector((state) => state.user);
+  const {userData,city} = useSelector((state) => state.user);
 
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [showMobileSearch, setShowMobileSearch] = useState(false);
 
-  const firstLetter = user?.userData?.fullName?.charAt(0).toUpperCase();
+  const firstLetter = userData?.fullName?.charAt(0).toUpperCase();
 
   return (
     <nav className="w-full bg-[#fff9f6] shadow-sm rounded-md px-4 md:px-15 py-3">
@@ -20,7 +20,7 @@ const Navbar = () => {
         {/* CENTER : LOCATION + SEARCH (DESKTOP) */}
         <div className="hidden md:flex flex-1 items-center bg-white shadow-sm rounded-full px-4 py-2 gap-3">
           <FaMapMarkerAlt className="text-orange-500" />
-          <span className="text-sm text-gray-600">Bareilly</span>
+          <span className="text-sm text-gray-600">{city}</span>
 
           <span className="h-5 w-px bg-gray-300"></span>
 
@@ -69,7 +69,7 @@ const Navbar = () => {
             {showUserMenu && (
               <div className="absolute right-0 top-12 bg-white shadow-lg rounded-md w-40 p-2">
                 <p className="text-sm font-semibold px-2 py-1">
-                  {user?.userData?.fullName}
+                  {userData?.fullName}
                 </p>
                 <hr />
                 <button className="w-full md:hidden cursor-pointer text-left px-2 py-1 text-sm hover:bg-gray-100">
