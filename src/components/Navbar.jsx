@@ -1,14 +1,28 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { FaSearch, FaShoppingCart, FaMapMarkerAlt } from "react-icons/fa";
+import axios from "axios"
+import { serverUrl } from "../App";
+import { setuserData } from "../store/userSlice";
 
 const Navbar = () => {
   const {userData,city} = useSelector((state) => state.user);
+  const dispatch = useDispatch()
 
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [showMobileSearch, setShowMobileSearch] = useState(false);
-
   const firstLetter = userData?.fullName?.charAt(0).toUpperCase();
+
+  const handleLogOut = async () => {
+    try {
+      const result = await axios.get(`${serverUrl}/api/auth/logout`,
+        {withCredentials:true}
+      )
+      dispatch(setuserData(null))
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
     <nav className="w-full bg-[#fff9f6] shadow-sm rounded-md px-4 md:px-15 py-3">
@@ -75,7 +89,7 @@ const Navbar = () => {
                 <button className="w-full md:hidden cursor-pointer text-left px-2 py-1 text-sm hover:bg-gray-100">
                   My Orders
                 </button>
-                <button className="w-full cursor-pointer text-left px-2 py-1 text-sm text-red-500 hover:bg-gray-100">
+                <button onClick={handleLogOut} className="w-full cursor-pointer text-left px-2 py-1 text-sm text-red-500 hover:bg-gray-100">
                   Log Out
                 </button>
               </div>
