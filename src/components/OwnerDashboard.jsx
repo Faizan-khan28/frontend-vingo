@@ -1,6 +1,9 @@
+import Navbar from "./Navbar"
 
 export const OwnerDashboard = () => {
   return (
-    <div>OwnerDashboard</div>
+    <div>
+     <Navbar/>
+    </div>
   )
 }

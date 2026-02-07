@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { FaSearch, FaShoppingCart, FaMapMarkerAlt } from "react-icons/fa";
-import axios from "axios"
+import axios from "axios";
 import { serverUrl } from "../App";
 import { setuserData } from "../store/userSlice";
 
 const Navbar = () => {
-  const {userData,city} = useSelector((state) => state.user);
-  const dispatch = useDispatch()
+  const { userData, city } = useSelector(state => state.user);
+  const dispatch = useDispatch();
 
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [showMobileSearch, setShowMobileSearch] = useState(false);
@@ -15,40 +15,40 @@ const Navbar = () => {
 
   const handleLogOut = async () => {
     try {
-      const result = await axios.get(`${serverUrl}/api/auth/logout`,
-        {withCredentials:true}
-      )
-      dispatch(setuserData(null))
+      const result = await axios.get(`${serverUrl}/api/auth/logout`, {
+        withCredentials: true,
+      });
+      dispatch(setuserData(null));
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
 
   return (
     <nav className="w-full bg-[#fff9f6] shadow-sm rounded-md px-4 md:px-15 py-3">
       <div className="max-w-7xl mx-auto flex items-center justify-between gap-5">
-
         {/* LEFT : LOGO */}
         <h1 className="text-2xl font-bold text-orange-500">Vingo</h1>
 
         {/* CENTER : LOCATION + SEARCH (DESKTOP) */}
-        <div className="hidden md:flex flex-1 items-center bg-white shadow-sm rounded-full px-4 py-2 gap-3">
-          <FaMapMarkerAlt className="text-orange-500" />
-          <span className="text-sm text-gray-600">{city}</span>
+        {userData.role == "user" && (
+          <div className="hidden md:flex flex-1 items-center bg-white shadow-sm rounded-full px-4 py-2 gap-3">
+            <FaMapMarkerAlt className="text-orange-500" />
+            <span className="text-sm text-gray-600">{city}</span>
 
-          <span className="h-5 w-px bg-gray-300"></span>
+            <span className="h-5 w-px bg-gray-300"></span>
 
-          <FaSearch className="text-gray-400" />
-          <input
-            type="text"
-            placeholder="search delicious food..."
-            className="flex-1 outline-none text-sm"
-          />
-        </div>
+            <FaSearch className="text-gray-400" />
+            <input
+              type="text"
+              placeholder="search delicious food..."
+              className="flex-1 outline-none text-sm"
+            />
+          </div>
+        )}
 
         {/* RIGHT : CART + ORDERS + USER */}
         <div className="flex items-center gap-4 relative">
-
           {/* Mobile search icon */}
           <button
             className="md:hidden"
@@ -89,7 +89,10 @@ const Navbar = () => {
                 <button className="w-full md:hidden cursor-pointer text-left px-2 py-1 text-sm hover:bg-gray-100">
                   My Orders
                 </button>
-                <button onClick={handleLogOut} className="w-full cursor-pointer text-left px-2 py-1 text-sm text-red-500 hover:bg-gray-100">
+                <button
+                  onClick={handleLogOut}
+                  className="w-full cursor-pointer text-left px-2 py-1 text-sm text-red-500 hover:bg-gray-100"
+                >
                   Log Out
                 </button>
               </div>
@@ -99,7 +102,7 @@ const Navbar = () => {
       </div>
 
       {/* MOBILE SEARCH BAR */}
-      {showMobileSearch && (
+      {showMobileSearch && userData.role == "user" && (
         <div className="md:hidden mt-3 bg-white shadow-sm rounded-full px-4 py-2 flex items-center gap-2">
           <FaSearch className="text-gray-400" />
           <input
