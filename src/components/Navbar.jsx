@@ -50,20 +50,24 @@ const Navbar = () => {
         {/* RIGHT : CART + ORDERS + USER */}
         <div className="flex items-center gap-4 relative">
           {/* Mobile search icon */}
-         {userData.role=="user" &&  <button
-            className="md:hidden"
-            onClick={() => setShowMobileSearch(!showMobileSearch)}
-          >
-            <FaSearch />
-          </button>}
+          {userData.role == "user" && (
+            <button
+              className="md:hidden"
+              onClick={() => setShowMobileSearch(!showMobileSearch)}
+            >
+              <FaSearch />
+            </button>
+          )}
 
           {/* Cart */}
-          <div className="relative cursor-pointer">
-            <FaShoppingCart />
-            <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
-              0
-            </span>
-          </div>
+          {userData.role == "user" && (
+            <div className="relative cursor-pointer">
+              <FaShoppingCart />
+              <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
+                0
+              </span>
+            </div>
+          )}
 
           {/* My Orders (Desktop only) */}
           <button className="hidden md:block cursor-pointer text-sm text-orange-500 font-medium">
