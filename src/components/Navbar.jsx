@@ -50,12 +50,12 @@ const Navbar = () => {
         {/* RIGHT : CART + ORDERS + USER */}
         <div className="flex items-center gap-4 relative">
           {/* Mobile search icon */}
-          <button
+         {userData.role=="user" &&  <button
             className="md:hidden"
             onClick={() => setShowMobileSearch(!showMobileSearch)}
           >
             <FaSearch />
-          </button>
+          </button>}
 
           {/* Cart */}
           <div className="relative cursor-pointer">
