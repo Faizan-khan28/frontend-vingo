@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { FaSearch, FaShoppingCart, FaMapMarkerAlt } from "react-icons/fa";
+import {FaSearch,FaShoppingCart, FaMapMarkerAlt,FaPlus,} from "react-icons/fa";
+import { LuReceipt } from "react-icons/lu";
 import axios from "axios";
 import { serverUrl } from "../App";
 import { setuserData } from "../store/userSlice";
@@ -59,6 +60,32 @@ const Navbar = () => {
             </button>
           )}
 
+          {userData.role == "owner" && (
+            <>
+              <button className="hidden md:flex items-center font-medium gap-1 p-2 rounded-full cursor-pointer bg-[#ff4d2d]/10 text-[#ff4d2d]">
+                <FaPlus size={15} />
+                <span>Add Food Item</span>
+              </button>
+
+              <button className='md:hidden flex items-center p-2 rounded-full cursor-pointer bg-[#ff4d2d]/10 text-[#ff4d2d]'>
+                <FaPlus />
+              </button>
+              <div className="hidden md:flex relative items-center gap-2 px-3 py-2 font-medium rounded-full cursor-pointer bg-[#ff4d2d]/10 text-[#ff4d2d]">
+                 <LuReceipt />
+                 <span>My Orders</span>
+                 <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
+                  0
+                 </span> 
+              </div>
+              <div className="md:hidden flex relative items-center gap-2 px-3 py-2 font-medium rounded-full cursor-pointer bg-[#ff4d2d]/10 text-[#ff4d2d]">
+                 <LuReceipt />
+                 <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs w-4 h-4 flex items-center justify-center rounded-full">
+                  0
+                 </span> 
+              </div>
+            </>
+          )}
+
           {/* Cart */}
           {userData.role == "user" && (
             <div className="relative cursor-pointer">
@@ -70,9 +97,10 @@ const Navbar = () => {
           )}
 
           {/* My Orders (Desktop only) */}
+          {userData.role=="user" && 
           <button className="hidden md:block cursor-pointer text-sm text-orange-500 font-medium">
             My Orders
-          </button>
+          </button>}
 
           {/* User Avatar */}
           <div className="relative cursor-pointer">
