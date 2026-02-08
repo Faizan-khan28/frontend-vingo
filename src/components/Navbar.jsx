@@ -8,6 +8,7 @@ import { setuserData } from "../store/userSlice";
 
 const Navbar = () => {
   const { userData, city } = useSelector(state => state.user);
+  const { myShopData } = useSelector(state => state.owner);
   const dispatch = useDispatch();
 
   const [showUserMenu, setShowUserMenu] = useState(false);
@@ -62,14 +63,17 @@ const Navbar = () => {
 
           {userData.role == "owner" && (
             <>
-              <button className="hidden md:flex items-center font-medium gap-1 p-2 rounded-full cursor-pointer bg-[#ff4d2d]/10 text-[#ff4d2d]">
-                <FaPlus size={15} />
-                <span>Add Food Item</span>
-              </button>
-
-              <button className="md:hidden flex items-center p-2 rounded-full cursor-pointer bg-[#ff4d2d]/10 text-[#ff4d2d]">
-                <FaPlus />
-              </button>
+              {myShopData && (
+                <>
+                  <button className="hidden md:flex items-center font-medium gap-1 p-2 rounded-full cursor-pointer bg-[#ff4d2d]/10 text-[#ff4d2d]">
+                    <FaPlus size={15} />
+                    <span>Add Food Item</span>
+                  </button>
+                  <button className="md:hidden flex items-center p-2 rounded-full cursor-pointer bg-[#ff4d2d]/10 text-[#ff4d2d]">
+                    <FaPlus />
+                  </button>
+                </>
+              )}
               <div className="hidden md:flex relative items-center gap-2 px-3 py-2 font-medium rounded-full cursor-pointer bg-[#ff4d2d]/10 text-[#ff4d2d]">
                 <LuReceipt />
                 <span>My Orders</span>
