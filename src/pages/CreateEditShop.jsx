@@ -1,11 +1,13 @@
 import { FaUtensils } from "react-icons/fa";
 import { FaArrowLeftLong } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom";
 
 export const CreateEditShop = () => {
+    const navigate = useNavigate()
   return (
     <div className="w-screen h-screen bg-[#fff8f1] grid place-items-center">
       {/* Back Arrow */}
-      <button className="absolute top-7 left-15 text-[24px] cursor-pointer text-orange-500 hover:text-orange-600">
+      <button onClick={()=> navigate("/")} className="absolute top-7 left-15 z-10 text-[24px] cursor-pointer text-orange-500 hover:text-orange-600">
         <FaArrowLeftLong />
       </button>
 
