@@ -1,53 +1,49 @@
 import { FaUtensils } from "react-icons/fa";
+import { FaArrowLeftLong } from "react-icons/fa6";
 
 export const CreateEditShop = () => {
   return (
-     <div className="min-h-screen bg-[#fff8f1] flex items-center justify-center px-4">
+    <div className="w-screen h-screen bg-[#fff8f1] grid place-items-center">
+      {/* Back Arrow */}
+      <button className="absolute top-7 left-15 text-[24px] cursor-pointer text-orange-500 hover:text-orange-600">
+        <FaArrowLeftLong />
+      </button>
+
       <div className="w-full max-w-md bg-white rounded-xl shadow-lg p-6">
         {/* Icon */}
         <div className="flex justify-center mb-3">
-          <FaUtensils className="text-[#ff4d2d] w-16 h-16 sm:w-20 sm:h-20 mb-4"  />
+          <div className="bg-orange-100 p-4 rounded-full">
+            <FaUtensils className="text-[#ff4d2d] w-8 h-8" />
+          </div>
         </div>
 
         {/* Title */}
-        <h2 className="text-center text-xl sm:text-2xl font-medium mb-5">
-          Edit Shop
-        </h2>
+        <h2 className="text-center text-xl font-semibold">Edit Shop</h2>
 
-        <form  className="space-y-4">
-          {/* Name */}
+        <form className="space-y-3">
           <div>
-            <label className="text-sm font-medium">Name</label>
+            <label className="text-sm">Name</label>
             <input
-              type="text"
-              name="name"
-              className="w-full mt-1 px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-orange-400"
+              className="w-full mt-1 px-3 py-2 border rounded-md"
+              placeholder="Enter Shop Name"
             />
           </div>
 
-          {/* Image */}
           <div>
-            <label className="text-sm font-medium">Shop Image</label>
-            <input
-              type="file"
-              className="w-full mt-1 text-sm"
-            />
+            <label className="text-sm">Shop Image</label>
+            <input type="file" className="w-full border rounded-md px-3 py-2 text-sm" />
           </div>
 
-          {/* Preview */}
-            <img
-              src={"https://images.unsplash.com/photo-1608198093002-ad4e005484ec"}
-              alt="shop"
-              className="w-full h-40 object-cover rounded-md"
-            />
+          <img
+            src="https://images.unsplash.com/photo-1608198093002-ad4e005484ec"
+            className="w-full h-40 object-cover rounded-md"
+          />
 
-          {/* City & State */}
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="text-sm font-medium">City</label>
               <input
-                type="text"
-                name="city"
+                placeholder="Enter city"
                 className="w-full mt-1 px-3 py-2 border rounded-md"
               />
             </div>
@@ -55,32 +51,22 @@ export const CreateEditShop = () => {
             <div>
               <label className="text-sm font-medium">State</label>
               <input
-                type="text"
-                name="state"
+                placeholder="Enter state"
                 className="w-full mt-1 px-3 py-2 border rounded-md"
               />
             </div>
           </div>
 
-          {/* Address */}
-          <div>
-            <label className="text-sm font-medium">Address</label>
-            <input
-              type="text"
-              name="address"
-              className="w-full mt-1 px-3 py-2 border rounded-md"
-            />
-          </div>
+          <input
+            className="w-full px-3 py-2 border rounded-md"
+            placeholder="Enter Address"
+          />
 
-          {/* Save Button */}
-          <button
-            type="submit"
-            className="w-full bg-orange-500 hover:bg-orange-600 text-white py-2 rounded-md font-medium"
-          >
+          <button className="w-full cursor-pointer bg-orange-500 hover:bg-orange-600 text-white py-2 rounded-md">
             Save
           </button>
         </form>
       </div>
     </div>
-  )
-}
+  );
+};
