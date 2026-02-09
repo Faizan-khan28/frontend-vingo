@@ -7,7 +7,7 @@ export const CreateEditShop = () => {
   return (
     <div className="w-screen h-screen bg-[#fff8f1] grid place-items-center">
       {/* Back Arrow */}
-      <button onClick={()=> navigate("/")} className="absolute top-7 left-15 z-10 text-[24px] cursor-pointer text-orange-500 hover:text-orange-600">
+      <button onClick={()=> navigate("/")} className="absolute top-5 left-5 sm:top-7 sm:left-15  z-10 text-[24px] cursor-pointer text-orange-500 hover:text-orange-600">
         <FaArrowLeftLong />
       </button>
 
