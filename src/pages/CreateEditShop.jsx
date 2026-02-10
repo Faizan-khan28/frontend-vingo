@@ -1,11 +1,18 @@
+import { useState } from "react";
 import { FaUtensils } from "react-icons/fa";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 export const CreateEditShop = () => {
+
     const navigate = useNavigate()
     const {myShopData} = useSelector(state=> state.owner)
+    const [name,setName] = useState(myShopData?.name || "")
+    const [city,setCity] = useState(myShopData?.city || "")
+    const [state,setState] = useState(myShopData?.state || "")
+    const [address,setAddress] = useState(myShopData?.address || "")
+
   return (
     <div className="w-screen h-screen bg-[#fff8f1] grid place-items-center">
       {/* Back Arrow */}

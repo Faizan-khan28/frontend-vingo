@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import axios from "axios"
-import { setcity } from '../store/userSlice'
+import { setcity, setState } from '../store/userSlice'
 
 export const useGetCity = () => {
     const dispatch = useDispatch()
@@ -17,6 +17,7 @@ export const useGetCity = () => {
                 const result = await axios.get(`https://api.geoapify.com/v1/geocode/reverse?lat=${latitude}&lon=${longitude}&format=json&apiKey=${apiKey}`)
                 // console.log(result.data.results[0].city)
                 dispatch(setcity(result?.data?.results[0].city))
+                dispatch(setState(result?.data?.results[0].state))
             })
         } catch (error) {
             console.log({message:`error in GetCity ${error}`})
