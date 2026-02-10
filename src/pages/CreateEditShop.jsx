@@ -37,7 +37,7 @@ export const CreateEditShop = () => {
 
           <div>
             <label className="text-sm">Shop Image</label>
-            <input type="file" className="w-full border rounded-md px-3 py-2 text-sm" />
+            <input type="file" accept="image/*" className="w-full border rounded-md px-3 py-2 text-sm" />
           </div>
 
           <img
