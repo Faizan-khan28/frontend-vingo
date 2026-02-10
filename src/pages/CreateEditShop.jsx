@@ -7,11 +7,13 @@ import { useNavigate } from "react-router-dom";
 export const CreateEditShop = () => {
 
     const navigate = useNavigate()
-    const {myShopData} = useSelector(state=> state.owner)
+    const {myShopData} = useSelector(state=> state.owner)    
+    const {city,state,address} = useSelector(state=> state.user)   
+
     const [name,setName] = useState(myShopData?.name || "")
-    const [city,setCity] = useState(myShopData?.city || "")
-    const [state,setState] = useState(myShopData?.state || "")
-    const [address,setAddress] = useState(myShopData?.address || "")
+    const [City,setCity] = useState(myShopData?.city || "")
+    const [State,setState] = useState(myShopData?.state || "")
+    const [Address,setAddress] = useState(myShopData?.address || "")
 
   return (
     <div className="w-screen h-screen bg-[#fff8f1] grid place-items-center">

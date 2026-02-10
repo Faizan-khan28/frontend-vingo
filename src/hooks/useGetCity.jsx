@@ -18,6 +18,7 @@ export const useGetCity = () => {
                 // console.log(result.data.results[0].city)
                 dispatch(setcity(result?.data?.results[0].city))
                 dispatch(setState(result?.data?.results[0].state))
+                dispatch(setState(result?.data?.results[0].address))
             })
         } catch (error) {
             console.log({message:`error in GetCity ${error}`})
