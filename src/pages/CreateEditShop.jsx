@@ -1,9 +1,11 @@
 import { FaUtensils } from "react-icons/fa";
 import { FaArrowLeftLong } from "react-icons/fa6";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 export const CreateEditShop = () => {
     const navigate = useNavigate()
+    const {myShopData} = useSelector(state=> state.owner)
   return (
     <div className="w-screen h-screen bg-[#fff8f1] grid place-items-center">
       {/* Back Arrow */}
@@ -20,7 +22,9 @@ export const CreateEditShop = () => {
         </div>
 
         {/* Title */}
-        <h2 className="text-center text-xl font-semibold">Edit Shop</h2>
+        <h2 className="text-center text-3xl text-gray-900 font-extrabold">
+          {myShopData ? "Edit Shop" : "Add Shop"}
+        </h2>
 
         <form className="space-y-3">
           <div>
