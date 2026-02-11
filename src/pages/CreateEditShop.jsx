@@ -12,7 +12,7 @@ export const CreateEditShop = () => {
 
     const [name,setName] = useState(myShopData?.name || "")
     const [City,setCity] = useState(myShopData?.city || city)
-    const [State,setState] = useState(myShopData?.state || "")
+    const [State,setState] = useState(myShopData?.state || state)
     const [Address,setAddress] = useState(myShopData?.address || "")
 
   return (
