@@ -13,7 +13,7 @@ export const CreateEditShop = () => {
     const [name,setName] = useState(myShopData?.name || "")
     const [City,setCity] = useState(myShopData?.city || city)
     const [State,setState] = useState(myShopData?.state || state)
-    const [Address,setAddress] = useState(myShopData?.address || "")
+    const [Address,setAddress] = useState(myShopData?.address || address)
 
   return (
     <div className="w-screen h-screen bg-[#fff8f1] grid place-items-center">
