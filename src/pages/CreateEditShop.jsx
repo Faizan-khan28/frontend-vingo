@@ -11,7 +11,7 @@ export const CreateEditShop = () => {
     const {city,state,address} = useSelector(state=> state.user)   
 
     const [name,setName] = useState(myShopData?.name || "")
-    const [City,setCity] = useState(myShopData?.city || "")
+    const [City,setCity] = useState(myShopData?.city || city)
     const [State,setState] = useState(myShopData?.state || "")
     const [Address,setAddress] = useState(myShopData?.address || "")
 
