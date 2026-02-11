@@ -34,7 +34,7 @@ export const CreateEditShop = () => {
         <h2 className="text-center text-3xl text-gray-900 font-extrabold">
           {myShopData ? "Edit Shop" : "Add Shop"}
         </h2>
-
+         {/* form */}
         <form className="space-y-3">
           <div>
             <label className="text-sm">Name</label>
