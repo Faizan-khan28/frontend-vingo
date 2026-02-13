@@ -8,11 +8,11 @@ export const CreateEditShop = () => {
 
     const navigate = useNavigate()
     const {myShopData} = useSelector(state=> state.owner)    
-    const {city,state,address} = useSelector(state=> state.user)   
+    const {city,currentState,address} = useSelector(state=> state.user)   
 
     const [name,setName] = useState(myShopData?.name || "")
     const [City,setCity] = useState(myShopData?.city || city)
-    const [State,setState] = useState(myShopData?.state || state)
+    const [State,setState] = useState(myShopData?.state || currentState)
     const [Address,setAddress] = useState(myShopData?.address || address)
 
   return (
@@ -41,6 +41,8 @@ export const CreateEditShop = () => {
             <input
               className="w-full mt-1 px-3 py-2 border rounded-md"
               placeholder="Enter Shop Name"
+              onChange={(e)=>setName(e.target.value)}
+              value={name}
             />
           </div>
 
@@ -60,6 +62,8 @@ export const CreateEditShop = () => {
               <input
                 placeholder="Enter city"
                 className="w-full mt-1 px-3 py-2 border rounded-md"
+                onChange={(e)=>setCity(e.target.value)}
+                value={City}
               />
             </div>
 
@@ -68,6 +72,8 @@ export const CreateEditShop = () => {
               <input
                 placeholder="Enter state"
                 className="w-full mt-1 px-3 py-2 border rounded-md"
+                onChange={(e)=>setState(e.target.value)}
+                value={State}
               />
             </div>
           </div>
@@ -75,6 +81,8 @@ export const CreateEditShop = () => {
           <input
             className="w-full px-3 py-2 border rounded-md"
             placeholder="Enter Address"
+            onChange={(e)=>setAddress(e.target.value)}
+            value={Address}
           />
 
           <button className="w-full cursor-pointer bg-orange-500 hover:bg-orange-600 text-white py-2 rounded-md">
