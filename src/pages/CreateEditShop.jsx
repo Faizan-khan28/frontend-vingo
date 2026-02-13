@@ -1,14 +1,18 @@
+import axios from "axios";
 import { useState } from "react";
 import { FaUtensils } from "react-icons/fa";
 import { FaArrowLeftLong } from "react-icons/fa6";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { serverUrl } from "../App";
+import { setMyShopData } from "../store/ownerSlice";
 
 export const CreateEditShop = () => {
 
     const navigate = useNavigate()
     const {myShopData} = useSelector(state=> state.owner)    
-    const {city,currentState,address} = useSelector(state=> state.user)   
+    const {city,currentState,address} = useSelector(state=> state.user)
+    const dispatch = useDispatch()   
 
     const [name,setName] = useState(myShopData?.name || "")
     const [City,setCity] = useState(myShopData?.city || city)
@@ -16,10 +20,31 @@ export const CreateEditShop = () => {
     const [Address,setAddress] = useState(myShopData?.address || address)
     const [frontendImage,setFrontendImage] = useState(myShopData?.image || null)
     const [backendImage,setBackendImage] = useState(null)
+
     const handleImage = (e)=> {
       const file = e.target.files[0]
       setBackendImage(file)
       setFrontendImage(URL.createObjectURL(file))
+    }
+
+    const handleFormData = async (e) => {
+      e.preventDefault()
+      try {
+        const formData = new FormData()
+        formData.append("name",name)
+        formData.append("city",City)
+        formData.append("state",State)
+        formData.append("address",Address)
+        if (backendImage) {
+          formData.append("image",backendImage)
+        }
+        const result = await axios.post(`${serverUrl}/api/shop/create-edit`,formData,
+          {withCredentials:true}
+        )
+        dispatch(setMyShopData(result.data))
+      } catch (error) {
+        console.log(error)
+      }
     }
 
   return (
@@ -42,7 +67,7 @@ export const CreateEditShop = () => {
           {myShopData ? "Edit Shop" : "Add Shop"}
         </h2>
          {/* form */}
-        <form className="space-y-3">
+        <form onSubmit={handleFormData} className="space-y-3">
           <div>
             <label className="text-sm">Name</label>
             <input
@@ -60,6 +85,7 @@ export const CreateEditShop = () => {
 
           <img
             src={frontendImage}
+            alt="add Image"
             className="w-full h-40 object-cover rounded-md"
           />
 
