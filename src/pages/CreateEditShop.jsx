@@ -15,7 +15,12 @@ export const CreateEditShop = () => {
     const [State,setState] = useState(myShopData?.state || currentState)
     const [Address,setAddress] = useState(myShopData?.address || address)
     const [frontendImage,setFrontendImage] = useState(myShopData?.image || null)
-    const [backendImage,setBackendImage] = useState(myShopData?.image || null)
+    const [backendImage,setBackendImage] = useState(null)
+    const handleImage = (e)=> {
+      const file = e.target.files[0]
+      setBackendImage(file)
+      setFrontendImage(URL.createObjectURL(file))
+    }
 
   return (
     <div className="w-screen h-screen bg-[#fff8f1] grid place-items-center">
@@ -50,11 +55,11 @@ export const CreateEditShop = () => {
 
           <div>
             <label className="text-sm">Shop Image</label>
-            <input type="file" accept="image/*" className="w-full border rounded-md px-3 py-2 text-sm" />
+            <input type="file" onChange={handleImage} accept="image/*" className="w-full border rounded-md px-3 py-2 text-sm" />
           </div>
 
           <img
-            src="https://images.unsplash.com/photo-1608198093002-ad4e005484ec"
+            src={frontendImage}
             className="w-full h-40 object-cover rounded-md"
           />
 
