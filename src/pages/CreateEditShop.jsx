@@ -42,12 +42,12 @@ export const CreateEditShop = () => {
           {withCredentials:true}
         )
         dispatch(setMyShopData(result.data))
+        console.log(result.data)
       } catch (error) {
         console.log(error)
       }
     }
 
-    // everything working properly
 
   return (
     <div className="w-screen h-screen bg-[#fff8f1] grid place-items-center">
