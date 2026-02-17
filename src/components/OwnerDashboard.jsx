@@ -26,6 +26,11 @@ export const OwnerDashboard = () => {
          <h1 className="text-2xl sm:text-3xl text-gray-900 flex items-center gap-3 mt-8"> <FaUtensils className="text-[#ff4d2d] w-14 h-14"  />Welcome to {myShopData.name}</h1>
          <div className="bg-white shadow-lg rounded-xl overflow-hidden border border-orange-100 hover:shadow-2xl transition-all duration-300 w-full max-w-3xl relative">
           <img className="w-full h-48 sm:h-64 object-cover" src={myShopData.image} alt={myShopData.name} />
+          <div className="p-4 sm:p-6">
+            <h1 className="text-xl sm:text-2xl font-bold text-gray-800 mb-2">{myShopData.name}</h1>
+            <p className="text-gray-500">{myShopData.city},{myShopData.state}</p>
+            <p className="text-gray-500 mb-2">{myShopData.address}</p>
+          </div>
          </div>
        </div>
       }
