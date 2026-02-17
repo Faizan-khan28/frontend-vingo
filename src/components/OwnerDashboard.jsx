@@ -24,8 +24,8 @@ export const OwnerDashboard = () => {
       {myShopData && 
        <div className="w-full flex flex-col items-center gap-6 px-4 sm:px-6">
          <h1 className="text-2xl sm:text-3xl text-gray-900 flex items-center gap-3 mt-8"> <FaUtensils className="text-[#ff4d2d] w-14 h-14"  />Welcome to {myShopData.name}</h1>
-         <div>
-          <img src={myShopData.image} alt={myShopData.name} />
+         <div className="bg-white shadow-lg rounded-xl overflow-hidden border border-orange-100 hover:shadow-2xl transition-all duration-300 w-full max-w-3xl relative">
+          <img className="w-full h-48 sm:h-64 object-cover" src={myShopData.image} alt={myShopData.name} />
          </div>
        </div>
       }
