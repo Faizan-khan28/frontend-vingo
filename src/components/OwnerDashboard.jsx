@@ -6,7 +6,7 @@ import { FaPen } from "react-icons/fa";
 export const OwnerDashboard = () => {
   let { myShopData } = useSelector(state => state.owner);
   const navigate = useNavigate()
-  console.log(myShopData.items)
+  console.log(myShopData)
   return (
     <div className="overflow-x-hidden">
       <Navbar />
@@ -39,7 +39,7 @@ export const OwnerDashboard = () => {
        </div>
       }
 
-      {myShopData.items.length == 0 && 
+      {myShopData && myShopData.items.length == 0 && 
       <div className="flex justify-center items-center p-4 sm:p-6">
         <div className="w-full max-w-md bg-white shadow-lg rounded-2xl p-6 border-gray-100 hover:shadow-xl transition-shadow duration-300">
           <div className="flex flex-col items-center text-center">
