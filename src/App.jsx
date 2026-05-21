@@ -17,7 +17,7 @@ function App() {
   useGetMyShop()
   const {userData} = useSelector(state=>state.user);
   return (
-    <>
+    <div className="overflow-x-hidden">
      <Routes>
       <Route path="/" element={userData?<Home/>:<Navigate to={"/login"}/>} />
       <Route path="/signup" element={!userData?<SignUp/>: <Navigate to={"/"}/>} />
@@ -26,7 +26,7 @@ function App() {
       <Route path="/create-edit-shop" element={userData?<CreateEditShop/>: <Navigate to={"/login"}/>} />
       <Route path="/add-item" element={userData?<AddItem/>: <Navigate to={"/login"}/>} />
      </Routes>
-    </>
+    </div>
   )
 }
 
