@@ -1,9 +1,9 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaUtensils } from "react-icons/fa";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { serverUrl } from "../App";
 import { setMyShopData } from "../store/ownerSlice";
 
@@ -12,6 +12,7 @@ export const EditItem = () => {
   const navigate = useNavigate();
   const { myShopData } = useSelector((state) => state.owner);
   const dispatch = useDispatch();
+  const {itemId} = useParams()
 
   const [name, setName] = useState("");
   const [price, setPrice] = useState(0);
@@ -19,6 +20,7 @@ export const EditItem = () => {
   const [foodType, setFoodType] = useState("veg");
   const [frontendImage, setFrontendImage] = useState(null);
   const [backendImage, setBackendImage] = useState(null);
+  const [currentItem,setCurrentItem] = useState(null)
 
   const Category = [
     "Snacks",
@@ -72,6 +74,18 @@ export const EditItem = () => {
       console.log(error);
     }
   };
+
+  useEffect(()=>{
+    const handlegetitembyId = async () => {
+      try {
+        const result = await axios(`${serverUrl}/api/item/get-item/${itemId}`,
+        {withCredentials:true})
+        setCurrentItem(result.data)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+  },[itemId])
 
   return (
     <div className="w-screen min-h-screen bg-[#fff8f1] flex justify-center items-center py-5 px-3">
