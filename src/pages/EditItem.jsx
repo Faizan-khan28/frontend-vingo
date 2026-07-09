@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { serverUrl } from "../App";
 import { setMyShopData } from "../store/ownerSlice";
+import { ClipLoader } from "react-spinners";
 
 export const EditItem = () => {
 
@@ -21,6 +22,7 @@ export const EditItem = () => {
   const [foodType, setFoodType] = useState("");
   const [frontendImage, setFrontendImage] = useState(null);
   const [backendImage, setBackendImage] = useState(null);
+  const [loading, setLoading] = useState(false)
   
 
   const Category = [
@@ -48,7 +50,7 @@ export const EditItem = () => {
 
   const handleFormData = async (e) => {
     e.preventDefault();
-
+    setLoading(true)
     try {
       const formData = new FormData();
 
@@ -68,11 +70,11 @@ export const EditItem = () => {
       );
 
       dispatch(setMyShopData(result.data));
-
-      console.log(result.data);
-
+      setLoading(false)
+      navigate("/")
     } catch (error) {
       console.log(error);
+      setLoading(false)
     }
   };
 
@@ -218,7 +220,7 @@ export const EditItem = () => {
 
           {/* Button */}
           <button className="w-full bg-orange-500 hover:bg-orange-600 text-white py-2 rounded-lg cursor-pointer transition-all">
-            Add Food
+            {loading ? <ClipLoader size={20} color="white"/> : "Save"}
           </button>
 
         </form>
