@@ -14,13 +14,14 @@ export const EditItem = () => {
   const dispatch = useDispatch();
   const {itemId} = useParams()
 
+  const [currentItem,setCurrentItem] = useState(null)
   const [name, setName] = useState("");
   const [price, setPrice] = useState(0);
   const [category, setCategory] = useState("");
-  const [foodType, setFoodType] = useState("veg");
+  const [foodType, setFoodType] = useState("");
   const [frontendImage, setFrontendImage] = useState(null);
   const [backendImage, setBackendImage] = useState(null);
-  const [currentItem,setCurrentItem] = useState(null)
+  
 
   const Category = [
     "Snacks",
@@ -61,7 +62,7 @@ export const EditItem = () => {
       }
 
       const result = await axios.post(
-        `${serverUrl}/api/item/add-item`,
+        `${serverUrl}/api/item/edit-item/${itemId}`,
         formData,
         { withCredentials: true }
       );
@@ -78,14 +79,23 @@ export const EditItem = () => {
   useEffect(()=>{
     const handlegetitembyId = async () => {
       try {
-        const result = await axios(`${serverUrl}/api/item/get-item/${itemId}`,
+        const result = await axios.get(`${serverUrl}/api/item/get-item/${itemId}`,
         {withCredentials:true})
         setCurrentItem(result.data)
       } catch (error) {
         console.log(error)
       }
     }
+    handlegetitembyId()
   },[itemId])
+
+  useEffect(()=>{
+    setName(currentItem?.name || "") 
+    setPrice(currentItem?.price || 0) 
+    setCategory(currentItem?.category || "") 
+    setFoodType(currentItem?.foodType || "") 
+    setFrontendImage(currentItem?.image || "") 
+  },[currentItem])
 
   return (
     <div className="w-screen min-h-screen bg-[#fff8f1] flex justify-center items-center py-5 px-3">
@@ -110,7 +120,7 @@ export const EditItem = () => {
 
         {/* Title */}
         <h2 className="text-center text-2xl font-bold text-gray-800 mb-4">
-          Add Food
+          Edit Food
         </h2>
 
         {/* Form */}
