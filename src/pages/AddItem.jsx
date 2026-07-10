@@ -38,7 +38,6 @@ export const AddItem = () => {
 
   const handleImage = (e) => {
     const file = e.target.files[0];
-    setLoding(true)
     if (file) {
       setBackendImage(file);
       setFrontendImage(URL.createObjectURL(file));
@@ -47,7 +46,7 @@ export const AddItem = () => {
 
   const handleFormData = async (e) => {
     e.preventDefault();
-
+    setLoding(true)
     try {
       const formData = new FormData();
 
