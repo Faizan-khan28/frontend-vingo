@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { serverUrl } from "../App";
 import { setMyShopData } from "../store/ownerSlice";
+import { ClipLoader } from "react-spinners";
 
 export const AddItem = () => {
 
@@ -19,6 +20,7 @@ export const AddItem = () => {
   const [foodType, setFoodType] = useState("veg");
   const [frontendImage, setFrontendImage] = useState(null);
   const [backendImage, setBackendImage] = useState(null);
+  const [loading,setLoding] = useState(false)
 
   const Category = [
     "Snacks",
@@ -36,7 +38,7 @@ export const AddItem = () => {
 
   const handleImage = (e) => {
     const file = e.target.files[0];
-
+    setLoding(true)
     if (file) {
       setBackendImage(file);
       setFrontendImage(URL.createObjectURL(file));
@@ -65,11 +67,11 @@ export const AddItem = () => {
       );
 
       dispatch(setMyShopData(result.data));
-
-      console.log(result.data);
-
+      setLoding(false)
+      navigate("/")
     } catch (error) {
       console.log(error);
+      setLoding(false)
     }
   };
 
@@ -193,8 +195,8 @@ export const AddItem = () => {
           </div>
 
           {/* Button */}
-          <button className="w-full bg-orange-500 hover:bg-orange-600 text-white py-2 rounded-lg cursor-pointer transition-all">
-            Add Food
+          <button disabled={loading} className="w-full bg-orange-500 hover:bg-orange-600 text-white py-2 rounded-lg cursor-pointer transition-all">
+           {loading ? <ClipLoader size={20} color="white"/> : "Add Food"}
           </button>
 
         </form>

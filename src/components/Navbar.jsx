@@ -5,11 +5,13 @@ import { LuReceipt } from "react-icons/lu";
 import axios from "axios";
 import { serverUrl } from "../App";
 import { setuserData } from "../store/userSlice";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const { userData, city } = useSelector(state => state.user);
   const { myShopData } = useSelector(state => state.owner);
   const dispatch = useDispatch();
+  const navigate = useNavigate()
 
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [showMobileSearch, setShowMobileSearch] = useState(false);
@@ -65,11 +67,11 @@ const Navbar = () => {
             <>
               {myShopData && (
                 <>
-                  <button className="hidden md:flex items-center font-medium gap-1 p-2 rounded-full cursor-pointer bg-[#ff4d2d]/10 text-[#ff4d2d]">
+                  <button onClick={()=> navigate("/add-item")} className="hidden md:flex items-center font-medium gap-1 p-2 rounded-full cursor-pointer bg-[#ff4d2d]/10 text-[#ff4d2d]">
                     <FaPlus size={15} />
                     <span>Add Food Item</span>
                   </button>
-                  <button className="md:hidden flex items-center p-2 rounded-full cursor-pointer bg-[#ff4d2d]/10 text-[#ff4d2d]">
+                  <button onClick={()=> navigate("/add-item")} className="md:hidden flex items-center p-2 rounded-full cursor-pointer bg-[#ff4d2d]/10 text-[#ff4d2d]">
                     <FaPlus />
                   </button>
                 </>
@@ -123,9 +125,9 @@ const Navbar = () => {
                   {userData?.fullName}
                 </p>
                 <hr />
-                <button className="w-full md:hidden cursor-pointer text-left px-2 py-1 text-sm hover:bg-gray-100">
+                {userData.role == "user" && <button className="w-full md:hidden cursor-pointer text-left px-2 py-1 text-sm hover:bg-gray-100">
                   My Orders
-                </button>
+                </button>}
                 <button
                   onClick={handleLogOut}
                   className="w-full cursor-pointer text-left px-2 py-1 text-sm text-red-500 hover:bg-gray-100"

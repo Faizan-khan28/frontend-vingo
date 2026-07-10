@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { serverUrl } from "../App";
 import { setMyShopData } from "../store/ownerSlice";
+import { ClipLoader } from "react-spinners";
 
 export const CreateEditShop = () => {
 
@@ -20,6 +21,7 @@ export const CreateEditShop = () => {
     const [Address,setAddress] = useState(myShopData?.address || address)
     const [frontendImage,setFrontendImage] = useState(myShopData?.image || null)
     const [backendImage,setBackendImage] = useState(null)
+    const [loading,setLoding] = useState(false)
 
     const handleImage = (e)=> {
       const file = e.target.files[0]
@@ -29,6 +31,7 @@ export const CreateEditShop = () => {
 
     const handleFormData = async (e) => {
       e.preventDefault()
+      setLoding(true)
       try {
         const formData = new FormData()
         formData.append("name",name)
@@ -42,9 +45,11 @@ export const CreateEditShop = () => {
           {withCredentials:true}
         )
         dispatch(setMyShopData(result.data))
-        console.log(result.data)
+        setLoding(false)
+        navigate("/")
       } catch (error) {
         console.log(error)
+        setLoding(false)
       }
     }
 
@@ -120,8 +125,8 @@ export const CreateEditShop = () => {
             value={Address}
           />
 
-          <button className="w-full cursor-pointer bg-orange-500 hover:bg-orange-600 text-white py-2 rounded-md">
-            Save
+          <button disabled={loading} className="w-full cursor-pointer bg-orange-500 hover:bg-orange-600 text-white py-2 rounded-md">
+           {loading ? <ClipLoader size={20} color="white"/> : "Save"}
           </button>
         </form>
       </div>
