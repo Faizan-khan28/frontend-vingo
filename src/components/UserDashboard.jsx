@@ -1,9 +1,23 @@
+import { category } from "../catogery"
 import Navbar from "../components/Navbar"
+import CategoryCard from "./CategoryCard"
 
 export const UserDashboard = () => {
   return (
-   <div>
+   <div className="w-screen min-h-screen flex flex-col gap-5 items-center bg-[#fff9f6] overflow-y-auto">
     <Navbar/>
+    <div className="w-full max-w-6xl flex flex-col gap-5 items-start p-2.5">
+     <h1 className="text-gray-800 text-2xl sm:text-3xl">Inspiration for your first Oderer</h1>
+     <div className="w-full">
+       <div className="w-full flex overflow-x-auto scrollbar-hide pl-2 pr-2 gap-4 pt-2 pb-2">
+         {
+         category.map((cate,index)=> (
+           <CategoryCard data={cate} key={index}/>
+          ))
+         }
+       </div>
+     </div>
+    </div>
    </div>
   )
 }
