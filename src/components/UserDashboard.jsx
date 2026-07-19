@@ -7,7 +7,7 @@ import { FaChevronCircleRight } from "react-icons/fa";
 import { useSelector } from "react-redux";
 
 export const UserDashboard = () => {
-  const {city,shopsInMyCity} = useSelector(state=>state.user)
+  const {city,shopsInMyCity,itemsInMyCity} = useSelector(state=>state.user)
   const cateScrollRef = useRef()
   const shopScrollRef = useRef()
   const [showLeftCateButton,setShowLeftCateButton] = useState(false)
@@ -98,6 +98,10 @@ export const UserDashboard = () => {
        </button>
        }
      </div>
+      </div>
+
+      <div className="w-full max-w-6xl flex flex-col gap-5 items-start p-2.5">
+         <h1 className="text-gray-800 text-2xl sm:text-3xl">Suggested Food Items</h1>
       </div>
    </div>
   )

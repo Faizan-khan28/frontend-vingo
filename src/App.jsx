@@ -11,6 +11,7 @@ import { CreateEditShop } from "./pages/CreateEditShop"
 import { AddItem } from "./pages/AddItem"
 import { EditItem } from "./pages/EditItem"
 import useGetShopsByCity from "./hooks/useGetShopsByCity"
+import useGetItemsByCity from "./hooks/useGetItemsbyCity"
 export const serverUrl = "http://localhost:8000"
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
   useGetCity()
   useGetMyShop()
   useGetShopsByCity()
+  useGetItemsByCity()
   const {userData} = useSelector(state=>state.user);
   return (
     <div className="overflow-x-hidden">
