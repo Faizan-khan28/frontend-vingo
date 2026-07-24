@@ -5,6 +5,7 @@ import CategoryCard from "./CategoryCard"
 import { FaChevronCircleLeft } from "react-icons/fa";
 import { FaChevronCircleRight } from "react-icons/fa";
 import { useSelector } from "react-redux";
+import FoodCard from "./FoodCard";
 
 export const UserDashboard = () => {
   const {city,shopsInMyCity,itemsInMyCity} = useSelector(state=>state.user)
@@ -102,6 +103,13 @@ export const UserDashboard = () => {
 
       <div className="w-full max-w-6xl flex flex-col gap-5 items-start p-2.5">
          <h1 className="text-gray-800 text-2xl sm:text-3xl">Suggested Food Items</h1>
+         <div className="w-full h-auto flex flex-wrap gap-5 justify-center">
+           {
+            itemsInMyCity?.map((items,index)=> (
+              <FoodCard key={index} data={items}/>
+            ))
+           }
+         </div>
       </div>
    </div>
   )
